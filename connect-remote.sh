@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 if [ $# -ne 3 ] || [ "$1" == "-h" ]; then
   echo "Usage: $0 USER@SERVER CONTAINER_NAME NODE_NAME"
   echo
@@ -23,7 +24,7 @@ REMOTE_NODE_NAME=$3
 : ${LOCAL_NODE_NAME:=my-laptop}
 : ${ERLANG_COOKIE:=mycookie}
 
-ELIXIR="'$(cat connect_remote.ex)'"
+ELIXIR="'$(cat ${BASH_SOURCE%/*}/connect_remote.ex)'"
 
 echo -n "Creating tunnel..."
 ssh -f -o ExitOnForwardFailure=yes $USER_SERVER \
